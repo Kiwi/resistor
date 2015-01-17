@@ -10,18 +10,8 @@ gem 'resistor'
 
 And then execute:
 
-    $ bundle
+    $ bundle install
 
 Or install it yourself as:
 
     $ gem install resistor
-
-## Usage
-
-## Contributing
-
-1. Fork it ( https://github.com/[my-github-username]/resistor/fork )
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create a new Pull Request
