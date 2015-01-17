@@ -69,6 +69,7 @@ module Resistor
     def self.decode(code)
       raise ArgumentError unless code.is_a? Array
       code = code.map(&:to_sym)
+      return 0.0 if code == [:black]
       raise ArgumentError if code[0] == :black
 
       return (NUM[code[0]]*10 + NUM[code[1]]) * 10**MULT[code[2]]
