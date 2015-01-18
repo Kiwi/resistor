@@ -11,7 +11,7 @@ module Resistor
         @error_range = error_range
       elsif code
         raise ArgumentError unless code.is_a? Array
-        @code = code
+        @code = code.map(&:to_sym)
         @ohm = Resistor::ColorCode.decode(@code)
         @error_range = Resistor::ColorCode::ERROR_RANGE[@code[3].to_sym]
       else
@@ -25,7 +25,7 @@ module Resistor
     end
 
     def code=(code)
-      @code = code
+      @code = code.map(&:to_sym)
       @ohm = Resistor::ColorCode.decode(@code)
       @error_range = Resistor::ColorCode::ERROR_RANGE[@code[3].to_sym]
     end
