@@ -72,7 +72,8 @@ module Resistor
       return 0.0 if code == [:black]
       raise ArgumentError if code[0] == :black
 
-      return (NUM[code[0]]*10 + NUM[code[1]]) * 10**MULT[code[2]]
+      ohm = (NUM[code[0]]*10 + NUM[code[1]]) * 10**MULT[code[2]]
+      return ohm.to_f
     end
   end
 end
