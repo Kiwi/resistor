@@ -78,4 +78,36 @@ describe Resistor::BasicResistor do
       it { expect(resistor.error_range).to eq 1.0 }
     end
   end
+
+  describe '#e12?' do
+    context 'E12系列である場合' do
+      it { expect(Resistor.new(ohm: 0.12).e12?).to eq true }
+      it { expect(Resistor.new(ohm: 3.3).e12?).to eq true }
+      it { expect(Resistor.new(ohm: 47).e12?).to eq true }
+      it { expect(Resistor.new(ohm: 82_000_000).e12?).to eq true }
+    end
+
+    context 'E12系列でない場合' do
+      it { expect(Resistor.new(ohm: 0.13).e12?).to eq false }
+      it { expect(Resistor.new(ohm: 3.8).e12?).to eq false }
+      it { expect(Resistor.new(ohm: 55).e12?).to eq false }
+      it { expect(Resistor.new(ohm: 70_000_000).e12?).to eq false }
+    end
+  end
+
+  describe '#e24?' do
+    context 'E24系列である場合' do
+      it { expect(Resistor.new(ohm: 0.1).e24?).to eq true }
+      it { expect(Resistor.new(ohm: 3).e24?).to eq true }
+      it { expect(Resistor.new(ohm: 47_000).e24?).to eq true }
+      it { expect(Resistor.new(ohm: 10_000_000).e24?).to eq true }
+    end
+
+    context 'E24系列でない場合' do
+      it { expect(Resistor.new(ohm: 0.92).e24?).to eq false }
+      it { expect(Resistor.new(ohm: 8.3).e24?).to eq false }
+      it { expect(Resistor.new(ohm: 23_000).e24?).to eq false }
+      it { expect(Resistor.new(ohm: 52_000_000).e24?).to eq false }
+    end
+  end
 end
