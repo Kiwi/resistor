@@ -37,5 +37,27 @@ module Resistor
     def /(other)
       Resistor::CombinedResistor.new(1 / (1 / @ohm + 1 / other.ohm))
     end
+
+    def e12?
+      num0 = Resistor::ColorCode::NUM[@code[0]]
+      num1 = Resistor::ColorCode::NUM[@code[1]]
+      Resistor::ColorCode::E12_SERIES.each do |key, val|
+        if num0 == key
+          return true if val.any? { |e| e == num1 }
+        end
+      end
+      return false
+    end
+
+    def e24?
+      num0 = Resistor::ColorCode::NUM[@code[0]]
+      num1 = Resistor::ColorCode::NUM[@code[1]]
+      Resistor::ColorCode::E24_SERIES.each do |key, val|
+        if num0 == key
+          return true if val.any? { |e| e == num1 }
+        end
+      end
+      return false
+    end
   end
 end
