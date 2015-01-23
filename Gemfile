@@ -1,4 +1,16 @@
 source 'https://rubygems.org'
 
-# Specify your gem's dependencies in resistor.gemspec
+gem 'rake'
+gem 'yard'
+
+group :development do
+  gem 'pry'
+  gem 'pry-doc'
+  gem 'pry-stack_explorer'
+end
+
+group :test do
+  gem 'rspec', '>= 3.1'
+end
+
 gemspec
