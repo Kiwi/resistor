@@ -31,6 +31,12 @@ describe Resistor::BasicResistor do
 
       it { expect { is_expected }.to raise_error(ArgumentError) }
     end
+
+    context '許容差を指定した場合' do
+      resistor = Resistor.new(ohm: 100, error_range: 0.1)
+      it { expect(resistor.code[3]).to eq :purple }
+      it { expect(resistor.error_range).to eq 0.1 }
+    end
   end
 
   describe '#+, #/' do
