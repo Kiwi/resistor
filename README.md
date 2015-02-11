@@ -1,4 +1,5 @@
 # Resistor
+[![Gem Version](https://badge.fury.io/rb/resistor.svg)](http://badge.fury.io/rb/resistor)  
 Resistor is a gem for the resistor unit.  
 
 ## Installation
@@ -41,10 +42,10 @@ Resistor::ColorCode.decode([:yellow, :purple, :red, :gold])
 ```ruby
 require 'resistor'
 
-r1 = Resistor.new(ohm: 20)
-r2 = Resistor.new(ohm: 30)
-r3 = Resistor.new(ohm: 4)
-r4 = Resistor.new(ohm: 8)
+r1 = Resistor.new(20)
+r2 = Resistor.new(30)
+r3 = Resistor.new(4)
+r4 = Resistor.new(8)
 
 #    --[r1]--          --[r4]--
 # --|        |--[r3]--|        |--
@@ -60,8 +61,8 @@ r5.ohm # => 20.0
 ```ruby
 require 'resistor'
 
-r1 = Resistor.new(ohm: 4700)
-r2 = Resistor.new(ohm: 62)
+r1 = Resistor.new(4700)
+r2 = Resistor.new(62)
 
 r1.e12? # => true
 r1.e24? # => true
