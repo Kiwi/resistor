@@ -58,6 +58,7 @@ module Resistor
     def +(other)
       Resistor::CombinedResistor.new(@ohm + other.ohm)
     end
+    alias_method :-, :+
 
     # Calculates a parallel combined resistance value.
     #
@@ -66,6 +67,7 @@ module Resistor
     def /(other)
       Resistor::CombinedResistor.new(1 / (1 / @ohm + 1 / other.ohm))
     end
+    alias_method :|, :/
 
     # @return [Boolean] Whether or not the resistance value is the E12 series.
     def e12?

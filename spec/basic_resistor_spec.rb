@@ -64,6 +64,22 @@ describe Resistor::BasicResistor do
 
       it { expect(((r1 / r2) + r3 + (r4 / r4)).ohm).to eq 20.0 }
     end
+
+    context '#+のエイリアスメソッドを使用した場合' do
+      r1 = Resistor.new(ohm: 100)
+      original_name = (r1 + r1 + r1).ohm
+      new_name = (r1 - r1 - r1).ohm
+
+      it { expect(original_name == new_name).to be_truthy }
+    end
+
+    context '#/のエイリアスメソッドを使用した場合' do
+      r1 = Resistor.new(ohm: 100)
+      original_name = (r1 / r1 / r1).ohm
+      new_name = (r1 | r1 | r1).ohm
+
+      it { expect(original_name == new_name).to be_truthy }
+    end
   end
 
   describe '#ohm=, #code=' do
