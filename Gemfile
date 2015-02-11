@@ -11,6 +11,8 @@ end
 
 group :test do
   gem 'rspec', '>= 3.1'
+  gem 'guard-rspec', '4.5.0'
+  gem 'libnotify', '0.9.1'
 end
 
 gemspec
