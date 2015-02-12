@@ -17,16 +17,15 @@ module Resistor
     # @return [Resistor::BasicResistor]
     def initialize(arg, options = {})
       options[:tolerance] ||= 5.0
-      opt = {:tolerance => options[:tolerance]}
 
       case arg
       when Integer, Float
         @ohm = arg.to_f
-        @code = Resistor::ColorCode.encode(@ohm, opt)
+        @code = Resistor::ColorCode.encode(@ohm, options)
         @tolerance = options[:tolerance]
       when Array
         @code = arg.map(&:to_sym)
-        @ohm = Resistor::ColorCode.decode(@code)
+        @ohm = Resistor::ColorCode.decode(@code, options)
         @tolerance = Resistor::ColorCode::TOLERANCE[@code[3].to_sym]
       else
         raise ArgumentError

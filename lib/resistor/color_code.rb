@@ -60,6 +60,8 @@ module Resistor
     }.freeze
 
 
+    module_function
+
     # Converts a resistance value to a color code.
     # The value must be between 0.1 and 99_000_000.
     #
@@ -68,10 +70,22 @@ module Resistor
     # @raise [ArgumentError] Error raised
     #   when the supplied resistance value is less than 0.1.
     # @return [Array<Symbol>] color code
-    def self.encode(ohm, options = {:tolerance => 5.0})
+    def encode(ohm, options = {})
       return [DIGIT.key(0)] if ohm == 0
       raise ArgumentError if ohm < 0.1
 
+      default = Resistor::Options.new
+      options[:tolerance] ||= default.tolerance
+      options[:band_number] ||= default.band_number
+
+      case options[:band_number]
+      when 4 then four_band_encode(ohm, options)
+      when 5 then five_band_encode(ohm, options)
+      else raise ArgumentError
+      end
+    end
+
+    def four_band_encode(ohm, options = {})
       if ohm < 1
         ohm_str = (ohm*100).to_s.split('')
         [DIGIT.key(ohm_str[0].to_i), DIGIT.key(ohm_str[1].to_i),
@@ -89,6 +103,30 @@ module Resistor
       end
     end
 
+    def five_band_encode(ohm, options = {})
+      if ohm < 10
+        ohm_str = (ohm*100).to_s.split('')
+        [DIGIT.key(ohm_str[0].to_i),
+         DIGIT.key(ohm_str[1].to_i),
+         DIGIT.key(ohm_str[2].to_i),
+         MULTIPLIER.key(-2), TOLERANCE.key(options[:tolerance])]
+
+      elsif ohm < 100
+        ohm_str = (ohm*10).to_s.split('')
+        [DIGIT.key(ohm_str[0].to_i), 
+         DIGIT.key(ohm_str[1].to_i),
+         DIGIT.key(ohm_str[2].to_i),
+         MULTIPLIER.key(-1), TOLERANCE.key(options[:tolerance])]
+
+      else
+        ohm_str = ohm.to_i.to_s.split('')
+        [DIGIT.key(ohm_str[0].to_i), 
+         DIGIT.key(ohm_str[1].to_i),
+         DIGIT.key(ohm_str[2].to_i),
+         MULTIPLIER.key(ohm_str.size - 3), TOLERANCE.key(options[:tolerance])]
+      end
+    end
+
     # Converts a color code to a resistance value.
     #
     # @param code [Array<Symbol>, Array<String>] color code
@@ -96,14 +134,32 @@ module Resistor
     #   when the supplied color code is not an array,
     #   or when the color of the first band is black.
     # @return [Float] resistance value
-    def self.decode(code)
+    def decode(code, options = {})
       raise ArgumentError unless code.is_a? Array
       code = code.map(&:to_sym)
       return 0.0 if code == [:black]
       raise ArgumentError if code[0] == :black
 
-      ohm = (DIGIT[code[0]]*10 + DIGIT[code[1]]) * 10**MULTIPLIER[code[2]]
-      return ohm.to_f
+      default = Resistor::Options.new
+      options[:band_number] ||= default.band_number
+
+      case options[:band_number]
+      when 4 then four_band_decode(code)
+      when 5 then five_band_decode(code)
+      else raise ArgumentError
+      end
+    end
+
+    def four_band_decode(code)
+      (DIGIT[code[0]]*10 + DIGIT[code[1]]) *
+      10**MULTIPLIER[code[2]]
+      .to_f
+    end
+
+    def five_band_decode(code)
+      (DIGIT[code[0]]*100 + DIGIT[code[1]]*10 + DIGIT[code[2]]) *
+      10**MULTIPLIER[code[3]]
+      .to_f
     end
   end
 end

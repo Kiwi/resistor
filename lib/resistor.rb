@@ -1,4 +1,5 @@
 require "resistor/version"
+require "resistor/options"
 require "resistor/color_code"
 require "resistor/basic_resistor"
 require "resistor/combined_resistor"
