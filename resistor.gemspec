@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["seinosuke"]
   spec.email         = ["seinosuke.3606@gmail.com"]
   spec.summary       = %q{Resistor gem}
-  spec.description   = %q{Gem for resistor}
+  spec.description   = %q{Resistor is a gem for the resistor unit.}
   spec.homepage      = "https://github.com/seinosuke/resistor"
   spec.license       = "MIT"
 
