@@ -73,7 +73,9 @@ module Resistor
     end
     alias_method :|, :/
 
-    # @return [Boolean] Whether or not the resistance value is the E12 series.
+    # Whether or not the resistance value is the E12 series.
+    #
+    # @return [Boolean]
     def e12?
       num0 = Resistor::ColorCode::DIGIT[@code[0]]
       num1 = Resistor::ColorCode::DIGIT[@code[1]]
@@ -85,7 +87,9 @@ module Resistor
       return false
     end
 
-    # @return [Boolean] Whether or not the resistance value is the E24 series.
+    # Whether or not the resistance value is the E24 series.
+    #
+    # @return [Boolean]
     def e24?
       num0 = Resistor::ColorCode::DIGIT[@code[0]]
       num1 = Resistor::ColorCode::DIGIT[@code[1]]
@@ -95,6 +99,34 @@ module Resistor
         end
       end
       return false
+    end
+
+    # Whether or not the resistance value is the E48 series.
+    # Always returns false if the number of bands is 4.
+    #
+    # @return [Boolean]
+    def e48?
+      return false if @code.size == 4
+      num = [
+        Resistor::ColorCode::DIGIT[@code[0]],
+        Resistor::ColorCode::DIGIT[@code[1]],
+        Resistor::ColorCode::DIGIT[@code[2]],
+      ].join.to_i
+      Resistor::ColorCode::E48_SERIES.any?{|n| n == num }
+    end
+
+    # Whether or not the resistance value is the E96 series.
+    # Always returns false if the number of bands is 4.
+    #
+    # @return [Boolean]
+    def e96?
+      return false if @code.size == 4
+      num = [
+        Resistor::ColorCode::DIGIT[@code[0]],
+        Resistor::ColorCode::DIGIT[@code[1]],
+        Resistor::ColorCode::DIGIT[@code[2]],
+      ].join.to_i
+      Resistor::ColorCode::E96_SERIES.any?{|n| n == num }
     end
   end
 end

@@ -159,4 +159,50 @@ describe Resistor::BasicResistor do
       it { expect(Resistor.new(52_000_000).e24?).to eq false }
     end
   end
+
+  describe '#e48?' do
+    before do
+      Resistor::Options.set_band_number 5
+    end
+    after do
+      Resistor::Options.set_band_number 4
+    end
+
+    context 'E48系列である場合' do
+      it { expect(Resistor.new(1.69).e48?).to eq true }
+      it { expect(Resistor.new(28.7).e48?).to eq true }
+      it { expect(Resistor.new(402).e48?).to eq true }
+      it { expect(Resistor.new(90_900_000).e48?).to eq true }
+    end
+
+    context 'E48系列でない場合' do
+      it { expect(Resistor.new(1.68).e48?).to eq false }
+      it { expect(Resistor.new(28.6).e48?).to eq false }
+      it { expect(Resistor.new(403).e48?).to eq false }
+      it { expect(Resistor.new(91_900_000).e48?).to eq false }
+    end
+  end
+
+  describe '#e96?' do
+    before do
+      Resistor::Options.set_band_number 5
+    end
+    after do
+      Resistor::Options.set_band_number 4
+    end
+
+    context 'E96系列である場合' do
+      it { expect(Resistor.new(1.91).e96?).to eq true }
+      it { expect(Resistor.new(45.3).e96?).to eq true }
+      it { expect(Resistor.new(715).e96?).to eq true }
+      it { expect(Resistor.new(10_000_000).e96?).to eq true }
+    end
+
+    context 'E96系列でない場合' do
+      it { expect(Resistor.new(1.92).e96?).to eq false }
+      it { expect(Resistor.new(45.4).e96?).to eq false }
+      it { expect(Resistor.new(716).e96?).to eq false }
+      it { expect(Resistor.new(11_100_000).e96?).to eq false }
+    end
+  end
 end
