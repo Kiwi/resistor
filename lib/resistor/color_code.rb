@@ -94,18 +94,24 @@ module Resistor
     def four_band_encode(ohm, options = {})
       if ohm < 1
         ohm_str = (ohm*100).to_s.split('')
-        [DIGIT.key(ohm_str[0].to_i), DIGIT.key(ohm_str[1].to_i),
-         MULTIPLIER.key(-2), TOLERANCE.key(options[:tolerance])]
+        [DIGIT.key(ohm_str[0].to_i),
+         DIGIT.key(ohm_str[1].to_i),
+         MULTIPLIER.key(-2),
+         TOLERANCE.key(options[:tolerance])]
 
       elsif ohm < 10
         ohm_str = (ohm*10).to_s.split('')
-        [DIGIT.key(ohm_str[0].to_i), DIGIT.key(ohm_str[1].to_i),
-         MULTIPLIER.key(-1), TOLERANCE.key(options[:tolerance])]
+        [DIGIT.key(ohm_str[0].to_i),
+         DIGIT.key(ohm_str[1].to_i),
+         MULTIPLIER.key(-1),
+         TOLERANCE.key(options[:tolerance])]
 
       else
         ohm_str = ohm.to_i.to_s.split('')
-        [DIGIT.key(ohm_str[0].to_i), DIGIT.key(ohm_str[1].to_i),
-         MULTIPLIER.key(ohm_str.size - 2), TOLERANCE.key(options[:tolerance])]
+        [DIGIT.key(ohm_str[0].to_i),
+         DIGIT.key(ohm_str[1].to_i),
+         MULTIPLIER.key(ohm_str.size - 2),
+         TOLERANCE.key(options[:tolerance])]
       end
     end
 
@@ -115,21 +121,24 @@ module Resistor
         [DIGIT.key(ohm_str[0].to_i),
          DIGIT.key(ohm_str[1].to_i),
          DIGIT.key(ohm_str[2].to_i),
-         MULTIPLIER.key(-2), TOLERANCE.key(options[:tolerance])]
+         MULTIPLIER.key(-2),
+         TOLERANCE.key(options[:tolerance])]
 
       elsif ohm < 100
         ohm_str = (ohm*10).to_s.split('')
         [DIGIT.key(ohm_str[0].to_i), 
          DIGIT.key(ohm_str[1].to_i),
          DIGIT.key(ohm_str[2].to_i),
-         MULTIPLIER.key(-1), TOLERANCE.key(options[:tolerance])]
+         MULTIPLIER.key(-1),
+         TOLERANCE.key(options[:tolerance])]
 
       else
         ohm_str = ohm.to_i.to_s.split('')
         [DIGIT.key(ohm_str[0].to_i), 
          DIGIT.key(ohm_str[1].to_i),
          DIGIT.key(ohm_str[2].to_i),
-         MULTIPLIER.key(ohm_str.size - 3), TOLERANCE.key(options[:tolerance])]
+         MULTIPLIER.key(ohm_str.size - 3),
+         TOLERANCE.key(options[:tolerance])]
       end
     end
 

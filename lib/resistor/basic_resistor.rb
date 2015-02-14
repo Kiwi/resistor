@@ -16,7 +16,9 @@ module Resistor
     #   Error raised if neither parameter is supplied.
     # @return [Resistor::BasicResistor]
     def initialize(arg, options = {})
-      options[:tolerance] ||= 5.0
+      default = Resistor::Options.new
+      options[:tolerance] ||= default.tolerance
+      options[:band_number] ||= default.band_number
 
       case arg
       when Integer, Float
@@ -26,7 +28,7 @@ module Resistor
       when Array
         @code = arg.map(&:to_sym)
         @ohm = Resistor::ColorCode.decode(@code, options)
-        @tolerance = Resistor::ColorCode::TOLERANCE[@code[3].to_sym]
+        @tolerance = Resistor::ColorCode::TOLERANCE[@code[-1].to_sym]
       else
         raise ArgumentError
       end
