@@ -8,10 +8,11 @@ module Resistor
     # but at least one of them must be supplied.
     #
     # @overload initialize(arg, options = {})
-    #   @param arg [Integer, Float] A resistance value.
+    #   @param arg [Integer, Float] A resistance value
     # @overload initialize(arg, options = {})
-    #   @param arg [Array<Symbol>, Array<String>] A color code.
+    #   @param arg [Array<Symbol>, Array<String>] A color code
     # @option options [Integer, Float] :tolerance(5.0)
+    # @option options [Integer] :band_number(4)
     # @raise [ArgumentError] The ohm or code parameter must be supplied.
     #   Error raised if neither parameter is supplied.
     # @return [Resistor::BasicResistor]

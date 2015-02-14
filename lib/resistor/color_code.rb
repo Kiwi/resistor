@@ -73,6 +73,7 @@ module Resistor
     #
     # @param ohm [Integer, Float] resistance value
     # @option options [Integer, Float] :tolerance(5.0)
+    # @option options [Integer] :band_number(4)
     # @raise [ArgumentError] Error raised
     #   when the supplied resistance value is less than 0.1.
     # @return [Array<Symbol>] color code
@@ -91,6 +92,8 @@ module Resistor
       end
     end
 
+    # This method is used by the `Colorcode.encode` method
+    # when `options[:band_number]` is 4.
     def four_band_encode(ohm, options = {})
       if ohm < 1
         ohm_str = (ohm*100).to_s.split('')
@@ -115,6 +118,8 @@ module Resistor
       end
     end
 
+    # This method is used by the `Colorcode.encode` method
+    # when `options[:band_number]` is 5.
     def five_band_encode(ohm, options = {})
       if ohm < 10
         ohm_str = (ohm*100).to_s.split('')
@@ -145,6 +150,7 @@ module Resistor
     # Converts a color code to a resistance value.
     #
     # @param code [Array<Symbol>, Array<String>] color code
+    # @option options [Integer] :band_number(4)
     # @raise [ArgumentError] Error raised
     #   when the supplied color code is not an array,
     #   or when the color of the first band is black.
@@ -165,12 +171,16 @@ module Resistor
       end
     end
 
+    # This method is used by the `Colorcode.decode` method
+    # when `options[:band_number]` is 4.
     def four_band_decode(code)
       (DIGIT[code[0]]*10 + DIGIT[code[1]]) *
       10**MULTIPLIER[code[2]]
       .to_f
     end
 
+    # This method is used by the `Colorcode.decode` method
+    # when `options[:band_number]` is 5.
     def five_band_decode(code)
       (DIGIT[code[0]]*100 + DIGIT[code[1]]*10 + DIGIT[code[2]]) *
       10**MULTIPLIER[code[3]]
