@@ -8,18 +8,22 @@ module Resistor
 
     attr_reader :band_number, :tolerance
 
-    def self.defaults
-      @defaults
-    end
+    class << self
+      def defaults(&block)
+        yield @defaults if block_given?
+        @defaults
+      end
 
-    def self.set_4band
-      @defaults[:band_number] = 4
-      @defaults[:tolerance] = 5.0
-    end
-
-    def self.set_5band
-      @defaults[:band_number] = 5
-      @defaults[:tolerance] = 1.0
+      def set_band_number(num)
+        case num
+        when 4
+          @defaults[:band_number] = 4
+          @defaults[:tolerance] = 5.0
+        when 5
+          @defaults[:band_number] = 5
+          @defaults[:tolerance] = 1.0
+        end
+      end
     end
 
     def initialize

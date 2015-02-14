@@ -1,6 +1,8 @@
 module Resistor
   module ColorCode
 
+    # [4-Band-Code] The 1st and 2nd digit of a resistance value
+    # [5-Band-Code] The 1st, 2nd and 3rd digit of a resistance value
     DIGIT = {
       :black  => 0,
       :brown  => 1,
@@ -14,6 +16,8 @@ module Resistor
       :white  => 9
     }.freeze
 
+    # [4-Band-Code] The 3rd color band indicates the multiplier.
+    # [5-Band-Code] The 4th color band indicates the multiplier.
     MULTIPLIER = {
       :black  => 0,
       :brown  => 1,
@@ -26,6 +30,8 @@ module Resistor
       :silver => -2
     }.freeze
 
+    # [4-Band-Code] The 4th color band indicates the tolerance.
+    # [5-Band-Code] The 5th color band indicates the tolerance.
     TOLERANCE = {
       :brown  => 1.0,
       :red    => 2.0,
