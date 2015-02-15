@@ -52,7 +52,7 @@ module Resistor
     def code=(code)
       @code = code.map(&:to_sym)
       @ohm = Resistor::ColorCode.decode(@code)
-      @tolerance = Resistor::ColorCode::TOLERANCE[@code[3].to_sym]
+      @tolerance = Resistor::ColorCode::TOLERANCE[@code[-1].to_sym]
     end
 
     # Calculates a series combined resistance value.
