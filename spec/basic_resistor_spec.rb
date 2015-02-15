@@ -119,12 +119,31 @@ describe Resistor::BasicResistor do
       it { expect(resistor.code).to eq [:yellow, :purple, :gold, :gold] }
     end
 
+    context '5本帯の抵抗値を変更する場合' do
+      Resistor::Options.set_band_number 5
+      resistor = Resistor.new(100)
+      resistor.ohm = 475
+      it { expect(resistor.ohm).to eq 475.0 }
+      it { expect(resistor.code).to eq [:yellow, :purple, :green, :black, :brown] }
+      Resistor::Options.set_band_number 4
+    end
+
     context 'カラーコードを変更する場合' do
       resistor = Resistor.new(100)
       resistor.code = ['green', 'brown', 'silver', 'brown']
       it { expect(resistor.ohm).to eq 0.51 }
       it { expect(resistor.code).to eq [:green, :brown, :silver, :brown] }
       it { expect(resistor.tolerance).to eq 1.0 }
+    end
+
+    context '5本帯のカラーコードを変更する場合' do
+      Resistor::Options.set_band_number 5
+      resistor = Resistor.new(100)
+      resistor.code = ['brown', 'green', 'yellow', 'silver', 'red']
+      it { expect(resistor.ohm).to eq 1.54 }
+      it { expect(resistor.code).to eq [:brown, :green, :yellow, :silver, :red] }
+      it { expect(resistor.tolerance).to eq 2.0 }
+      Resistor::Options.set_band_number 4
     end
   end
 
